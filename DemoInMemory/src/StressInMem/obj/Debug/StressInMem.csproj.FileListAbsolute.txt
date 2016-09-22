@@ -1,0 +1,6 @@
+C:\Users\amang\Source\Workspaces\Demos\SqlInMemDemo\SqlInMemDemo\StressInMem\bin\Debug\StressInMem.exe.config
+C:\Users\amang\Source\Workspaces\Demos\SqlInMemDemo\SqlInMemDemo\StressInMem\bin\Debug\StressInMem.exe
+C:\Users\amang\Source\Workspaces\Demos\SqlInMemDemo\SqlInMemDemo\StressInMem\bin\Debug\StressInMem.pdb
+C:\Users\amang\Source\Workspaces\Demos\SqlInMemDemo\SqlInMemDemo\StressInMem\obj\Debug\StressInMem.exe
+C:\Users\amang\Source\Workspaces\Demos\SqlInMemDemo\SqlInMemDemo\StressInMem\obj\Debug\StressInMem.pdb
+C:\Users\amang\Source\Workspaces\Demos\SqlInMemDemo\SqlInMemDemo\StressInMem\obj\Debug\StressInMem.csprojResolveAssemblyReference.cache
