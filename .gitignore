@@ -3,3 +3,22 @@
 ################################################################################
 
 /DemoAlwaysEncrypted/src/packages
+/DemoAlwaysEncrypted/src/SqlAlwaysEncDemo/bin
+/DemoAlwaysEncrypted/src/.vs
+/DemoAlwaysEncrypted/src/SqlAlwaysEncDemo/obj/Debug
+/DemoDdm/src/SqlDdm/obj/Debug
+/DemoDdm/src/SqlDdm/bin
+/DemoDdm/src/packages
+/DemoDdm/src/.vs
+/DemoInMemory/src/.vs/SqlInMemDemo/v14
+/DemoRls/src/SqlRlsDemo/obj/Debug
+/DemoRls/src/SqlRlsDemo/bin
+/DemoRls/src/packages
+/DemoRls/src/.vs
+/DemoSQLInjection/src/SqlInjectionDemo/obj/Debug
+/DemoSQLInjection/src/SqlInjectionDemo/bin
+/DemoSQLInjection/src/packages
+/DemoSQLInjection/src/.vs
+/DemoAppInsights/AppInsightsDemo/bin
+/DemoAppInsights/AppInsightsDemo/obj
+/DemoAppInsights/packages
