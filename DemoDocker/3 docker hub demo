@@ -1,0 +1,5 @@
+docker pull amang/catweb
+
+docker run -P -d amang/catweb
+
+docker push amang/catweb

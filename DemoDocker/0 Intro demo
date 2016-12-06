@@ -1,0 +1,54 @@
+# docker-machine create --driver hyperv
+# docker-machine create --driver virtualbox
+# docker-machine create --driver azure --azure-subscription-id "<guid-goes-here>" itcampdemo10
+# docker-machine create --driver azure --azure-subscription-id "05f2e3c3-5c8c-42f7-b6a7-6b0adfb8b6bf" --azure-open-port 80 netdevdaysmachine
+
+docker-machine create --driver azure --help
+
+docker-machine -version
+
+docker-machine ls
+
+docker-machine ip netdevdaysmachine
+
+docker ps
+docker
+docker run hello-world
+
+docker run ubuntu /bin/echo 'Hello World'
+
+docker ps
+
+docker run -t -i ubuntu
+pwd
+dir
+ls
+exit
+
+docker run -d ubuntu /bin/sh -c "while true; do echo 'hello world'; sleep 1; done;"
+
+docker ps
+
+docker logs <container-name>
+
+docker stop <container-name>
+
+docker run -d -P training/webapp python app.py
+
+docker run -d -p 80:5000 training/webapp python app.py
+
+docker port <container-name> 5000
+
+docker logs <container-name>
+
+docker logs -f <container-name>
+
+docker ps
+
+docker port <container-name>
+
+for ($i = 0; $i -lt 21; $i++) { docker run -d -p 80 training/webapp python app.py }
+
+docker stop $(docker ps -q)
+
+docker run -d -p 80:80 --name webserver nginx

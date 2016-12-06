@@ -1,0 +1,10 @@
+"FROM alpine:latest `n CMD /bin/echo 'Hello, World!'" | docker build -t amang/hello-world -
+
+docker run -d amang/hello-world
+
+docker push amang/hello-world
+
+"FROM alpine:latest `n CMD /bin/echo 'Hello, Developers @ CloudBrew!'" | docker build -t amang/hello-world:cloudbrew -
+
+docker run amang/hello-world:cloudbrew
+docker push amang/hello-world:cloudbrew

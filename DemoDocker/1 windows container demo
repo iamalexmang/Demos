@@ -1,0 +1,26 @@
+docker pull microsoft/windowsservercore
+
+docker run microsoft/sample-dotnet
+# for linux: docker run microsoft/dotnet-samples
+
+# docker run -p 1433:1433 -v C:/temp/:C:/temp/ --env attach_dbs="[{'dbName':'MaxTest','dbFiles':['C:\\temp\\maxtest.mdf','C:\\temp\\maxtest_log.ldf']}]" microsoft/mssql-server-2014-express-windows
+
+docker run -d -p 1433:1433 --env sa_password=AlexMang1! microsoft/mssql-server-2014-express-windows
+
+docker run -p 1433:1433 -v C:/temp/:C:/temp/ --env attach_dbs="[{'dbName':'CloudBrew2016','dbFiles':['C:\\temp\\cloudbrew2016.mdf','C:\\temp\\cloudbrew2016_log.ldf']}]" --env sa_password=AlexMang1! microsoft/mssql-server-2014-express-windows
+
+docker run -i -p 80:80 microsoft/iis cmd
+
+# del C:\inetpub\wwwroot\iisstart.htm
+
+# echo "Hello World From a Windows Server Container" > C:\inetpub\wwwroot\index.html
+
+"FROM microsoft/windowsservercore `n CMD echo Hello World!" | docker build -t amang/windows-test-image -
+
+docker run amang/windows-test-image
+
+docker login
+
+docker push amang/windows-test-image
+
+# Invoke-WebRequest https://dl.bintray.com/docker-compose/master/docker-compose-Windows-x86_64.exe -UseBasicParsing -OutFile $env:ProgramFiles\docker\docker-compose.exe
