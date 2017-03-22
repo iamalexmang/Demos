@@ -18,7 +18,7 @@ namespace SqlInjectionDemo.Controllers
         public ActionResult Index(string username, string password)
         {
             var loginSuccessful = false;
-            using (var sqlConnection = new SqlConnection("Server=tcp:cloudburstdbsrv.database.windows.net,1433;Database=demoinject;User ID=alex@cloudburstdbsrv;Password=123!@#qweQWE;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            using (var sqlConnection = new SqlConnection("Server=tcp:devexdbsrv.database.windows.net,1433;Database=demoinject;User ID=alex@devexdbsrv;Password=123!@#qweQWE;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
             {
                 sqlConnection.Open();
                 using (var sqlCmd = new SqlCommand())
