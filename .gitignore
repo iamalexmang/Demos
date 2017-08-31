@@ -22,3 +22,11 @@
 /DemoAppInsights/AppInsightsDemo/bin
 /DemoAppInsights/AppInsightsDemo/obj
 /DemoAppInsights/packages
+/.vs
+/DemoAppInsights/.vs/AppInsightsDemo/v15/.suo
+/DemoAppServiceAuthAAD/AlexMangWeb
+/DemoDdm/src/SqlDdm/obj/Release
+/DemoInMemory/src
+/DemoSQLInjection/src/SqlInjectionDemo/obj/Release
+/DemoRls/src/SqlRlsDemo/obj/Release
+/DemoAlwaysEncrypted/src/SqlAlwaysEncDemo/obj/Release
