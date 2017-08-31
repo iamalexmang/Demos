@@ -25,7 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
-    <ApplicationInsightsResourceId>/subscriptions/0e5ad97c-8382-45da-8bfe-c4d45e0b4e91/resourcegroups/azSaturdayRg/providers/microsoft.insights/components/appinsightsdemoai</ApplicationInsightsResourceId>
+    <ApplicationInsightsResourceId>/subscriptions/0e5ad97c-8382-45da-8bfe-c4d45e0b4e91/resourcegroups/azSaturdayRg/providers/microsoft.insights/components/appinsightsdemoapp</ApplicationInsightsResourceId>
     <Use64BitIISExpress />
     <ApplicationInsightsAnnotationResourceId>/subscriptions/0e5ad97c-8382-45da-8bfe-c4d45e0b4e91/resourcegroups/azSaturdayRg/providers/microsoft.insights/components/appinsightsdemoai</ApplicationInsightsAnnotationResourceId>
   </PropertyGroup>
