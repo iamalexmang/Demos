@@ -45,8 +45,8 @@ namespace MSSummit15Demo.Controllers
         {
             try
             {
-                var connectionString = "Server=tcp:on-premise-database.database.windows.net,1433;Database=demo;User ID=alex@mssummit15;Password=123!@#qweQWE;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-                //var connectionString = "Server=tcp:appinsightsdemodbsrv.database.windows.net,1433;Database=appinsightsdemodb;User ID=alex@appinsightsdemodbsrv;Password=123!@#qweQWE;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                //var connectionString = "Server=tcp:on-premise-database.database.windows.net,1433;Database=demo;User ID=alex@mssummit15;Password=123!@#qweQWE;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
+                var connectionString = "Server=tcp:azsaturdaydbsrv.database.windows.net,1433;Database=appinsightsdemodb;User ID=alex@azsaturdaydbsrv;Password=123!@#qweQWE;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
                 var connection = new SqlConnection(connectionString);
                 var command = new SqlCommand("SELECT FirstName FROM [SalesLT].[Customer]", connection);
                 connection.Open();
