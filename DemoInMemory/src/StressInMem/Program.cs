@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StressInMem
 {
@@ -44,7 +40,7 @@ namespace StressInMem
                 times = int.Parse(args[0]);
             var sw = new Stopwatch();
             sw.Start();
-            using (var sqlConn = new SqlConnection("Server=tcp:devexdbsrv.database.windows.net,1433;Database=demoInMem;User ID=alex;Password=123!@#qweQWE;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            using (var sqlConn = new SqlConnection("Server=tcp:azsaturdaydbsrvwe.database.windows.net,1433;Database=demoInMem;User ID=alex;Password=123!@#qweQWE;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
             {
                 sqlConn.Open();
                 using (var sqlCmd = new SqlCommand())

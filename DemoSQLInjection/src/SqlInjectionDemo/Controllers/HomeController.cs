@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
+﻿using System.Data.SqlClient;
 using System.Web.Mvc;
 
 namespace SqlInjectionDemo.Controllers
@@ -18,7 +14,7 @@ namespace SqlInjectionDemo.Controllers
         public ActionResult Index(string username, string password)
         {
             var loginSuccessful = false;
-            using (var sqlConnection = new SqlConnection("Server=tcp:devexdbsrv.database.windows.net,1433;Database=demoinject;User ID=alex@devexdbsrv;Password=123!@#qweQWE;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
+            using (var sqlConnection = new SqlConnection("Server=tcp:azsaturdaydbsrv.database.windows.net,1433;Database=demoinject;User ID=alex@azsaturdaydbsrv;Password=123!@#qweQWE;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"))
             {
                 sqlConnection.Open();
                 using (var sqlCmd = new SqlCommand())

@@ -30,3 +30,7 @@
 /DemoSQLInjection/src/SqlInjectionDemo/obj/Release
 /DemoRls/src/SqlRlsDemo/obj/Release
 /DemoAlwaysEncrypted/src/SqlAlwaysEncDemo/obj/Release
+/DemoServiceBusLoader/DemoServiceBusLoader/.vs/DemoServiceBusLoader/v15
+/DemoServiceBusLoader/DemoServiceBusLoader/DemoServiceBusLoader/bin/Debug
+/DemoServiceBusLoader/DemoServiceBusLoader/DemoServiceBusLoader/obj
+/DemoServiceBusLoader/DemoServiceBusLoader/packages/WindowsAzure.ServiceBus.4.1.3
