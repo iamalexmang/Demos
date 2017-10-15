@@ -1,17 +1,14 @@
 ﻿using Microsoft.ServiceBus;
 using Microsoft.ServiceBus.Messaging;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace DemoServiceBusLoader
 {
     class Program
     {
-        private static string connectionString = "Endpoint=sb://azfunctionsdemo.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=zEbMvUAo+q788qVs2ac+xbmV1Xt5ZSaBPicbxmrPrXA=";
+        private static string connectionString = "Endpoint=sb://scaling.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=2CytGwFQXHzEF6mBED4u7Zy6Jd5klnXdKG8YQ6WOKak=";
         private static string queueName = "performance";
         private static TimeSpan batchFlushInterval = TimeSpan.FromSeconds(5);
 
