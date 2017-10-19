@@ -2,14 +2,13 @@ using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Microsoft.Azure.WebJobs.ServiceBus;
 using Newtonsoft.Json;
-using System.Threading.Tasks;
 
 namespace AzFuncButtonApp
 {
     public static class ButtonListener
     {
         [FunctionName("ButtonListener")]
-        public static void Run([EventHubTrigger("button", Connection = "EventHubConnection")]string myEventHubMessage, TraceWriter log)
+        public static void Run([EventHubTrigger("iotbutton1", Connection = "EventHubConnection")]string myEventHubMessage, TraceWriter log)
         {
             var message = JsonConvert.DeserializeObject<DeviceMessage>(myEventHubMessage);
 

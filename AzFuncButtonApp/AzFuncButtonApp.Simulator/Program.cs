@@ -15,12 +15,11 @@ namespace AzFuncButtonApp.Simulator
         private static Random rnd;
         private static string[] locations = new string[] { "Redmond", "Seattle", "Las Vegas", "New York", "Orlando", "Snoqualmie" };
         private static EventHubClient client = EventHubClient.CreateFromConnectionString(
-            "Endpoint=sb://clickerhub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=CU0V/X6T70AS99cuXlYX4HZB5LAH0LLMyyIR56jaKoc=;EntityPath=button"
+            "Endpoint=sb://clickerhub.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=CU0V/X6T70AS99cuXlYX4HZB5LAH0LLMyyIR56jaKoc=;EntityPath=iotbutton1"
             );
 
         public static void Main(string[] args)
         {
-            ExtractSchema();
 
             rnd = new Random();
             Parallel.For(0, LIMIT, s =>

@@ -13,7 +13,7 @@ namespace AzFuncButtonApp
 
     internal class LogicApp
     {
-        private static readonly Uri _logicAppUri = new Uri("https://prod-45.westeurope.logic.azure.com:443/workflows/8d45107dd5a742609742e439fdcbba4b/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=qD5OYDY_-Of4CASWIfgaQ8WHyC87SFlEJTjfnY9V3K4");
+        private static readonly Uri _logicAppUri = new Uri("https://prod-41.westeurope.logic.azure.com:443/workflows/c646058b9f9843308c5cdc9f960a6550/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=erovrgZD8CeMuznVQGo_phHShmVpjj20KQhB_LtZbTM");
 
         internal static async Task TriggerAsync(LogicAppMessage logicAppMessage)
         {
