@@ -8,7 +8,7 @@ namespace DemoServiceBusLoader
 {
     class Program
     {
-        private static string connectionString = "Endpoint=sb://scaling.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=2CytGwFQXHzEF6mBED4u7Zy6Jd5klnXdKG8YQ6WOKak=";
+        private static string connectionString = ""
         private static string queueName = "performance";
         private static TimeSpan batchFlushInterval = TimeSpan.FromSeconds(5);
 
