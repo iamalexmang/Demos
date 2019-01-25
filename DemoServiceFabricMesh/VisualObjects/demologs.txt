@@ -1,0 +1,7 @@
+az group create --name Demo_SFMeshVisualObjects_Rg --location westeurope
+
+az mesh deployment create --resource-group Demo_SFMeshVisualObjects_Rg --template-file visualobjects.base.windows.json --parameters "{\"location\": {\"value\": \"westeurope\"}}" 
+
+az mesh deployment create --resource-group Demo_SFMeshVisualObjects_Rg --template-file visualobjects.scaleout.windows.json --parameters "{\"location\": {\"value\": \"westeurope\"}}" 
+
+az mesh deployment create --resource-group Demo_SFMeshVisualObjects_Rg --template-file visualobjects.upgrade.windows.json --parameters "{\"location\": {\"value\": \"westeurope\"}}"

@@ -1,0 +1,12 @@
+az group create --name Demo_SFMeshIngress_Rg --location westeurope
+
+az mesh deployment create --resource-group Demo_SFMeshIngress_Rg --template-file meshingress.linux.json --parameters "{\"location\": {\"value\": \"westeurope\"}}" 
+
+
+    Incoming requests to PublicIPAddress:Port/hello will be routed to helloWorldService.
+    Incoming requests to PublicIPAddress:Port/counter will be routed to counterService.
+
+
+az mesh deployment create --resource-group Demo_SFMeshIngress_Rg --template-file meshingress.ports.linux.json --parameters "{\"location\": {\"value\": \"westeurope\"}}" 
+
+az mesh deployment create --resource-group Demo_SFMeshIngress_Rg --template-file meshingress.headers.linux.json --parameters "{\"location\": {\"value\": \"westeurope\"}}" 

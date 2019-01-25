@@ -1,0 +1,2 @@
+az group create --name Demo_SFMeshHelloWorld_Rg --location westeurope
+az mesh deployment create --resource-group Demo_SFMeshHelloWorld_Rg --template-file mesh_rp.linux.json

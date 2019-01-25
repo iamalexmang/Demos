@@ -1,0 +1,3 @@
+az group create --name Demo_SFMeshVoting_Rg --location westeurope
+
+az mesh deployment create --resource-group Demo_SFMeshVoting_Rg --template-file mesh_rp.windows.json
