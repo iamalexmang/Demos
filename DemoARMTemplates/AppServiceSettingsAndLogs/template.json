@@ -1,0 +1,281 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "environmentName": {
+            "defaultValue": "dev",
+            "type": "String",
+            "allowedValues":[
+                "dev", "demo", "production"
+            ]
+        },
+        "productName": {
+            "defaultValue": "kt.onlinepayment",
+            "type": "String"
+        },
+        "location":{
+            "defaultValue": "westeurope",
+            "type": "String"
+        }
+    },
+    "variables": {
+        "uniqueSuffix": "[toLower(uniqueString(resourceGroup().id, deployment().name))]",
+        "appServiceResourceName": "[concat('ktonlinepayment', '-', parameters('environmentName'), '-app-', variables('uniqueSuffix'))]",
+        "applicationInsightsResourceName": "[concat('ktonlinepayment', '-', parameters('environmentName'), '-app-', variables('uniqueSuffix'))]",
+        "appServicePlanResourceName": "[concat('ktonlinepayment', '-', parameters('environmentName'), '-plan-', variables('uniqueSuffix'))]",
+        "storageAccountResourceName": "[substring(concat('ktonlinepayment', parameters('environmentName'), variables('uniqueSuffix')), 0, 24)]",
+        "appLogsSasFunctionValues": {
+            "canonicalizedResource": "[concat('/blob/', variables('storageAccountResourceName'), '/', 'applogs')]",
+            "signedResource": "c",
+            "signedPermission": "rwdl",
+            "signedExpiry": "2050-01-01T00:00:00Z"
+        },
+        "webSrvLogsSasFunctionValues": {
+            "canonicalizedResource": "[concat('/blob/', variables('storageAccountResourceName'), '/', 'websrvlogs')]",
+            "signedResource": "c",
+            "signedPermission": "rwdl",
+            "signedExpiry": "2050-01-01T00:00:00Z"
+        }
+    },
+    "resources": [
+        {
+            "type": "Microsoft.Insights/Components",
+            "apiVersion": "2015-05-01",
+            "name": "[variables('applicationInsightsResourceName')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "environment": "[parameters('environmentName')]",
+                "product": "[parameters('productName')]"
+            },
+            "kind": "web",
+            "properties": {
+                "Application_Type": "web"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-04-01",
+            "name": "[variables('storageAccountResourceName')]",
+            "location": "[parameters('location')]",
+            "tags": {
+                "environment": "[parameters('environmentName')]",
+                "product": "[parameters('productName')]"
+            },
+            "sku": {
+                "name": "Standard_LRS",
+                "tier": "Standard"
+            },
+            "kind": "StorageV2",
+            "properties": {
+                "supportsHttpsTrafficOnly": true,
+                "encryption": {
+                    "services": {
+                        "file": {
+                            "enabled": true
+                        },
+                        "blob": {
+                            "enabled": true
+                        }
+                    },
+                    "keySource": "Microsoft.Storage"
+                },
+                "accessTier": "Hot"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-04-01",
+            "name": "[concat(variables('storageAccountResourceName'), '/default/applogs')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountResourceName'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Storage/storageAccounts/blobServices/containers",
+            "apiVersion": "2019-04-01",
+            "name": "[concat(variables('storageAccountResourceName'), '/default/websrvlogs')]",
+            "dependsOn": [
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountResourceName'))]"
+            ],
+            "properties": {
+                "publicAccess": "None"
+            }
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2018-02-01",
+            "name": "[variables('appServicePlanResourceName')]",
+            "location": "West Europe",
+            "tags": {
+                "environment": "[parameters('environmentName')]",
+                "product": "[parameters('productName')]"
+            },
+            "sku": {
+                "name": "S1",
+                "tier": "Standard",
+                "size": "S1",
+                "family": "S",
+                "capacity": 1
+            },
+            "kind": "app"
+        },
+        {
+            "type": "Microsoft.Web/sites",
+            "apiVersion": "2018-11-01",
+            "name": "[variables('appServiceResourceName')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanResourceName'))]",
+                "[resourceId('Microsoft.Storage/storageAccounts', variables('storageAccountResourceName'))]",
+                "[resourceId('Microsoft.Insights/Components', variables('applicationInsightsResourceName'))]"
+            ],
+            "tags": {
+                "environment": "[parameters('environmentName')]",
+                "product": "[parameters('productName')]"
+            },
+            "kind": "app",
+            "properties": {
+                "enabled": true,
+                "serverFarmId": "[resourceId('Microsoft.Web/serverfarms', variables('appServicePlanResourceName'))]",
+                "clientAffinityEnabled": false,
+                "httpsOnly": true
+            },
+            "resources":[
+            ]
+        },
+        {
+            "name": "[concat(variables('appServiceResourceName'), '/appsettings')]",
+            "type": "Microsoft.Web/Sites/config",
+            "location": "West Europe",
+            "apiVersion": "2018-11-01",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/Sites', variables('appServiceResourceName'))]"
+            ],
+            "properties": {
+                "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(concat('Microsoft.Insights/components/', variables('applicationInsightsResourceName'))).InstrumentationKey]",
+                "APPINSIGHTS_PROFILERFEATURE_VERSION": "1.0.0",
+                "APPINSIGHTS_SNAPSHOTFEATURE_VERSION": "1.0.0",
+                "ApplicationInsightsAgent_EXTENSION_VERSION": "~2",
+                "InstrumentationEngine_EXTENSION_VERSION": "~1",
+                "SnapshotDebugger_EXTENSION_VERSION": "~1",
+                "XDT_MicrosoftApplicationInsights_Mode": "recommended",
+                "XDT_MicrosoftApplicationInsights_BaseExtensions": "~1"
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(variables('appServiceResourceName'), '/logs')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', variables('appServiceResourceName'))]"
+            ],
+            "tags": {
+                "environment": "[parameters('environmentName')]",
+                "product": "[parameters('productName')]"
+            },
+            "properties": {
+                "applicationLogs": {
+                    "fileSystem": {
+                        "level": "Off"
+                    },
+                    "azureTableStorage": {
+                        "level": "Off",
+                        "sasUrl": null
+                    },
+                    "azureBlobStorage": {
+                        "level": "Verbose",
+                        "sasUrl": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountResourceName'))).primaryEndpoints.blob, 'applogs', '?',listServiceSas(variables('storageAccountResourceName'), '2018-02-01', variables('webSrvLogsSasFunctionValues')).serviceSasToken)]",
+                        "retentionInDays": 0
+                    }
+                },
+                "httpLogs": {
+                    "fileSystem": {
+                        "retentionInMb": 35,
+                        "retentionInDays": 0,
+                        "enabled": false
+                    },
+                    "azureBlobStorage": {
+                        "sasUrl": "[concat(reference(concat('Microsoft.Storage/storageAccounts/', variables('storageAccountResourceName'))).primaryEndpoints.blob, 'websrvlogs', '?',listServiceSas(variables('storageAccountResourceName'), '2018-02-01', variables('webSrvLogsSasFunctionValues')).serviceSasToken)]",
+                        "retentionInDays": 0,
+                        "enabled": true
+                    }
+                },
+                "failedRequestsTracing": {
+                    "enabled": true
+                },
+                "detailedErrorMessages": {
+                    "enabled": true
+                }
+            }
+        },
+        {
+            "type": "Microsoft.Web/sites/config",
+            "apiVersion": "2018-11-01",
+            "name": "[concat(variables('appServiceResourceName'), '/web')]",
+            "location": "West Europe",
+            "dependsOn": [
+                "[resourceId('Microsoft.Web/sites', variables('appServiceResourceName'))]"
+            ],
+            "tags": {
+                "environment": "[parameters('environmentName')]",
+                "product": "[parameters('productName')]"
+            },
+            "properties": {
+                "numberOfWorkers": 1,
+                "defaultDocuments": [
+                    "hostingstart.html"
+                ],
+                "netFrameworkVersion": "v4.0",
+                "phpVersion": "5.6",
+                "pythonVersion": "",
+                "nodeVersion": "",
+                "linuxFxVersion": "",
+                "requestTracingEnabled": true,
+                "requestTracingExpirationTime": "9999-12-31T23:59:00Z",
+                "httpLoggingEnabled": true,
+                "logsDirectorySizeLimit": 35,
+                "detailedErrorLoggingEnabled": true,
+                "publishingUsername": "$ktonlinepayment-dev-app",
+                "scmType": "None",
+                "use32BitWorkerProcess": true,
+                "webSocketsEnabled": false,
+                "alwaysOn": true,
+                "managedPipelineMode": "Integrated",
+                "virtualApplications": [
+                    {
+                        "virtualPath": "/",
+                        "physicalPath": "site\\wwwroot",
+                        "preloadEnabled": true,
+                        "virtualDirectories": null
+                    }
+                ],
+                "autoHealEnabled": false,
+                "ipSecurityRestrictions": [
+                    {
+                        "ipAddress": "193.231.226.0/25",
+                        "action": "Allow",
+                        "tag": "Default",
+                        "priority": 100,
+                        "name": "KTS HQ",
+                        "description": "KeyTicket Solutions HQ IP Address range"
+                    },
+                    {
+                        "ipAddress": "Any",
+                        "action": "Deny",
+                        "priority": 2147483647,
+                        "name": "Deny all",
+                        "description": "Deny all access"
+                    }
+                ],
+                "scmIpSecurityRestrictionsUseMain": true,
+                "http20Enabled": true,
+                "minTlsVersion": "1.2",
+                "ftpsState": "AllAllowed"
+            }
+        }
+    ]
+}
